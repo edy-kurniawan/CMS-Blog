@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Boostrap Style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <title><%= data.title %></title>
+</head>
+
+<body>
+    <!-- As a heading -->
+    <nav class="navbar bg-header justify-content-between">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img class="d-inline-block align-top" width="160" height="40" src="/images/logo.svg">
+            </a>
+            <a class="title" href="/">Blog</a>
+        </div>
+    </nav>
+
+    <!--judul atas-->
+    <div class="container">
+        <br>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/category/<%=data.category.category%>"><%=data.category.category%></a></li>
+              <li class="breadcrumb-item active" aria-current="page"><%= data.slug %></li>
+            </ol>
+        </nav>
+        
+        <span class="new-font-1"><%= data.title %></span>
+        <nav class="nav">
+            <span class="nav-link active"><i class="far fa-eye"></i> <%= data.view %>x dibaca</span>
+            <span class="nav-link active"><i class="far fa-clock"></i> <%= moment(data.createdAt).format('Do MMMM, YYYY'); %></span>
+            <span class="nav-link active"><i class="fas fa-pen-square"></i> <%= data.user.name %></span>
+        </nav>
+    </div>
+
+    <!--Konten-->
+    <div class="sec-two">
+        <div class="container content-1">
+            <div class="row">
+                <div class="col-md-8">
+                    <!--Gambar atas halaman-->
+                    <div class="col-12 text-center">
+                        <img src="/images/content/<%= data.thumbnail %>" alt="" class="img-fluid">
+                    </div>
+                    <br>
+                    <%- data.desc %>
+                </div>
+                <div class="col-md-4" style="float:right">
+                    <div id="search-box">
+                        <form>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Masukan kata kunci">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2"><a href=""><i
+                                                class="fas fa-search"></i></a></span>
+                                </div>
+                            </div>
+                        </form>
+                        <b>Artikel Terbaru<b>
+                            <% if(article.length){ 
+                                for(var i = 0;i < article.length; i++) { %> 
+                            <div class="card radius25">
+                                <img src="/images/content/<%= article[i].thumbnail %>" class="card-img-top radius25" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="/blog/<%= article[i].slug %>"><%= article[i].title %></a></h5>
+                                    <p class="card-text"><small class="text-muted"><i
+                                                class="fas fa-calendar-alt"></i> <%= moment(article[i].createdAt).format('Do MMMM, YYYY'); %> <i
+                                                class="fas fa-pen-square"></i> <%=article[i].user.username%></i></small>
+                                    </p>
+                                </div>
+                            </div>
+                            <br>
+                            <% } } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container content-1">
+        <p><b>Share :</b></p>
+        <a href="http://www.twitter.com/share?url=/blog/<%= data.slug %>" class="btn btn-info btn-lg"><i class="fab fa-twitter-square"></i> Twitter</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=/blog/<%= data.slug %>" class="btn btn-primary btn-lg"><i class="fab fa-facebook-square"></i>
+            Facebook</a>
+        <a href="https://plus.google.com/share?url=/blog/<%= data.slug %>" class="btn btn-danger btn-lg"><i class="fab fa-google-plus-g"></i> Google</a>
+        <a href="whatsapp://send?text=/blog/<%= data.slug %>" class="btn btn-success btn-lg"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+
+    <% if(session) { %>
+    <!--Komentar-->
+    <div class="container content-1">
+        <form action="/admin/komentar/" method="POST">
+            <input type="hidden" value="<%= data.id %>" name="konten">
+            <input type="hidden" value="<%= data.slug %>" name="slug">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nama</label>
+                <input type="text" name="nama" value="<%= sessionname %>" class="form-control" disabled>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Masukan Komentar</label>
+                <textarea name="komentar" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+        </form>
+    </div>
+    <% } else { %> 
+        <div class="container content-1">
+            <form action="" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nama</label>
+                    <input type="text" name="nama" class="form-control" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Masukan Komentar</label>
+                    <textarea name="komentar" class="form-control" disabled></textarea>
+                </div>
+                <a href="/signin" class="btn btn-primary">Signin Terlebih Dahulu</a>
+            </form>
+        </div>
+    <% } %> 
+    <div class="container">
+        <% if(komentar.length){ 
+            for(var i = 0;i < komentar.length;i++) {  
+        %>
+        <div class="card">
+            <div class="card-body">
+                <!-- Post -->
+                <div class="post">
+                    <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="/images/user1-128x128.jpg" alt="user image">
+                        <span class="username">
+                            <a href="#"><%= komentar[i].user.name %></a>
+                        </span>
+                        <span class="description"><%= moment(komentar[i].createdAt).format('Do MMMM, YYYY'); %></span>
+                    </div>
+                    <!-- /.user-block -->
+                    <p>
+                        <%= komentar[i].comment %>
+                    </p>
+                    <p>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <span class="float-right">
+                            <a href="#" class="link-black text-sm">
+                                <i class="far fa-comments mr-1"></i> Comments (5)
+                            </a>
+                        </span>
+                    </p>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Post -->
+                            <div class="post">
+                                <div class="user-block">
+                                    <img class="img-circle img-bordered-sm" src="/images/user1-128x128.jpg" alt="user image">
+                                    <span class="username">
+                                        <a href="#"><%= komentar[i].reply.createdBy %></a>
+                                    </span>
+                                    <span class="description"><%= moment(komentar[i].reply.createdAt).format('Do MMMM, YYYY'); %></span>
+                                </div>
+                                <!-- /.user-block -->
+                                <p>
+                                    <%= komentar[i].reply.reply %>
+                                </p>
+                                <p>
+                                    <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                                    <span class="float-right">
+                                        <a href="#" class="link-black text-sm">
+                                            <i class="far fa-comments mr-1"></i> Comments (5)
+                                        </a>
+                                    </span>
+                                </p>
+                            </div>
+                            <!-- /.post -->
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- /.post -->
+            </div>
+        </div>
+        <% } }else { } %>
+    </div>
+    
+    <br>
+    <footer style="margin-top:0">
+        <div class="container">
+            <div class="container-footer">
+                <ul>
+                    <li><a href="https://www.sekolahdesain.id/why_sekdes">Tentang Kami</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/user-guide">Panduan Pengguna</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/contact">Kontak Kami</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/kebijakan">Kebijakan Privasi</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/sk">Syarat & ketentuan</a> </li>
+                </ul>
+            </div>
+            <div class="container-footer-second">
+                <ul>
+                    <li>© Copyright 2020</li>
+                    <li> • Sekolah Desain</li>
+                    <li> • Semua Bisa Desain!</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

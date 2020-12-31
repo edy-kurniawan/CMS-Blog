@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>ADMIN PAGE</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="/stylesheets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/stylesheets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/stylesheets/vendor/datatables-fixedheader/css/fixedHeader.bootstrap4.min.css">
+  <link rel="stylesheet" href="/stylesheets/vendor/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="/stylesheets/backoffice/style.css">
+  <link rel="stylesheet" href="/stylesheets/backoffice/components.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <!-- header  -->
+      <%- include('templates/header'); -%>
+      <!-- header end -->
+
+      <!-- sidebar  -->
+      <%- include('templates/sidebar'); -%>
+      <!-- sidebar end -->
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1>Data Konten</h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+              <div class="breadcrumb-item">User</div>
+              <div class="breadcrumb-item">Admin</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="float-right">
+                    <a href='/admin/add-konten' class='btn btn-primary' data-toggle='tooltip' data-placement='top'
+                      title='Tambah'> Tambah</a>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <table id="table" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                        <th>Penulis</th>
+                        <th>Diposting</th>
+                        <th>Dishare</th>
+                        <th>Dibaca</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if(data.length){ 
+                                          for(var i = 0;i < data.length;i++) { %>
+                      <tr>
+                        <td><%=(i+1)%></td>
+                        <td>
+                          <%=data[i].title%>
+                          <div class="table-links">
+                            in <a href="/category/<%=data[i].category.category%>"><%=data[i].category.category%></a>
+                            <div class="bullet"></div>
+                            <a href="/blog/<%=data[i].slug%>" target="_blank">View</a>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="/admin/admin" class="font-weight-600"><img
+                              src="/images/backoffice/avatar/avatar-1.png" alt="avatar" width="30"
+                              class="rounded-circle mr-1"><%= data[i].user.name %></a>
+                        </td>
+                        <td><%=data[i].createdAt%></td>
+                        <td><i class="fas fa-share-square"></i> <%=data[i].share%></td>
+                        <td><i class="far fa-eye"></i> <%=data[i].view%></td>
+                        <td>
+                          <a href='/admin/add-konten/<%=data[i].id%>' class='btn btn-sm btn-warning'
+                            data-toggle='tooltip' data-placement='top' data-target="#exampleModal" title='Edit'><i
+                              class='fas fa-edit'></i></a>
+                          <a href='javascript:void(0)' class='btn btn-sm btn-danger' data-toggle='tooltip'
+                            data-placement='top' title='Hapus' onclick='hapus(<%= data[i].id %>)'><i
+                              class='fas fa-trash-alt'></i></a>
+                        </td>
+                      </tr>
+                      <% } }else{ %>
+                      <tr>
+                        <td colspan="8">No Data</td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+          </div>
+      </div>
+      </section>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Data Admin</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Username</label>
+              <input type="text" class="form-control" placeholder="Masukan Username">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Password</label>
+              <input type="password" class="form-control" placeholder="Masukan Password">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Ulangi Password</label>
+              <input type="password" class="form-control" placeholder="Masukan Kembali Password">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Level</label>
+              <select class="form-control">
+                <option>Creator</option>
+                <option>Viewer</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="footer-left">
+        Copyright &copy; 2020
+      </div>
+      <div class="footer-right">
+        1.0.0
+      </div>
+    </footer>
+  </div>
+  </div>
+
+  <!-- General JS Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <!-- JS Libraies -->
+  <script src="/stylesheets/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="/stylesheets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="/stylesheets/vendor/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
+  <script src="/stylesheets/vendor/datatables-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+  <script src="/stylesheets/vendor/datatables-responsive/js/dataTables.responsive.min.js"></script>
+
+  <!-- Template JS File -->
+  <script src="/javascripts/backoffice/scripts.js"></script>
+  <script src="/javascripts/backoffice/custom.js"></script>
+  <script src="/javascripts/backoffice/stisla.js"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="/javascripts/backoffice/modules-datatables.js"></script>
+  <script>
+    $(document).ready(function () {
+      table = $('#table').DataTable({
+        "processing": true,
+        "responsive": true,
+      });
+      new $.fn.dataTable.FixedHeader(table);
+    });
+
+    function hapus(id) {
+      Swal.fire({
+        title: 'Hapus data?',
+        text: "Data yang dihapus tidak bisa dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "/api/content/" + id,
+            type: "DELETE",
+            dataType: "JSON",
+          })
+          Swal.fire(
+            'Deleted!',
+            'Data terhapus.',
+            'success'
+          )
+          location.reload();
+        }
+      })
+    }
+  </script>
+
+  <!-- Page Specific JS File -->
+</body>
+
+</html>

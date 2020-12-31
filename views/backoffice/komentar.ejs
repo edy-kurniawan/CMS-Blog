@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>ADMIN PAGE</title>
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="/stylesheets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/stylesheets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/stylesheets/vendor/datatables-fixedheader/css/fixedHeader.bootstrap4.min.css">
+    <link rel="stylesheet" href="/stylesheets/vendor/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/stylesheets/backoffice/style.css">
+    <link rel="stylesheet" href="/stylesheets/backoffice/components.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <!-- header  -->
+            <%- include('templates/header'); -%>
+            <!-- header end -->
+
+            <!-- sidebar  -->
+            <%- include('templates/sidebar'); -%>
+            <!-- sidebar end -->
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Data Komentar</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                            <div class="breadcrumb-item">Konten</div>
+                            <div class="breadcrumb-item">Komentar</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="float-right">
+                                        <button class="btn btn-info " data-toggle="tooltip" data-placement="top" title="Reload Table"><i class="glyphicon glyphicon-refresh"></i> Reload</button> 
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table id="table" class="table table-bordered table-striped">
+                                      <thead>
+                                      <tr>
+                                        <th>No</th>
+                                        <th>Konten</th>
+                                        <th>Komentar</th>
+                                        <th>Like</th>
+                                        <th>Member</th>
+                                        <th>Status</th>
+                                        <th>Tanggal</th>
+                                        <th>Aksi</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                        <% if(data.length){ 
+                                          for(var i = 0;i < data.length;i++) { %>
+                                      <tr>
+                                        <td><%=(i+1)%></td>
+                                        <td>
+                                          <%=data[i].content.title%>
+                                          <div class="table-links">
+                                            <div class="bullet"></div>
+                                            <a href="/blog/<%=data[i].content.slug%>" target="_blank">View</a>
+                                          </div>
+                                        </td>
+                                        <td> <%=data[i].comment%></td>
+                                        <td><i class="far fa-thumbs-up mr-1"></i> 0</a></td>
+                                        <td>
+                                            <a href="/admin/admin" class="font-weight-600"><img src="/images/backoffice/avatar/avatar-1.png" alt="avatar" width="30" class="rounded-circle mr-1"> <%= data[i].user.name %></a>
+                                        </td>
+                                        <td><span class="badge badge-danger">Belum dibalas</span></td>
+                                        <td><%= moment(data[i].createdAt).format('Do MMMM, YYYY'); %> </td>
+                                        <td>
+                                          <a href='javascript:void(0)' class='btn btn-sm btn-warning'data-toggle='tooltip' data-placement='top' title='Reply'
+                                          onclick='edit_data(<%= data[i].id %>)'><i class='fas fa-reply'></i></a>
+                                        </td>
+                                      </tr>
+                                      <% } }else{ %>
+                                        <tr>
+                                            <td colspan="4">No Data</td>
+                                        </tr>
+                                        <% } %>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Balas Komentar</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form method="POST" action="" id="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <input type="hidden" name="id">
+                            <label for="exampleFormControlInput1">Komentar</label>
+                            <textarea name="comment" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Balas</label>
+                            <textarea name="reply" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                      <button type="button" onclick="save()" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+            </div>
+
+            <footer class="main-footer">
+                <div class="footer-left">
+                    Copyright &copy; 2020
+                </div>
+                <div class="footer-right">
+                    1.0.0
+                </div>
+            </footer>
+        </div>
+    </div>
+
+     <!-- General JS Scripts -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+   <!-- JS Libraies -->
+   <script src="/stylesheets/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+   <script src="/stylesheets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+   <script src="/stylesheets/vendor/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
+   <script src="/stylesheets/vendor/datatables-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+   <script src="/stylesheets/vendor/datatables-responsive/js/dataTables.responsive.min.js"></script>
+
+   <!-- Template JS File -->
+   <script src="/javascripts/backoffice/scripts.js"></script>
+   <script src="/javascripts/backoffice/custom.js"></script>
+   <script src="/javascripts/backoffice/stisla.js"></script>
+
+   <!-- Page Specific JS File -->
+   <script src="/javascripts/backoffice/modules-datatables.js"></script>
+  
+   <script>
+    var table;
+    var tablemodal;
+    var save_method;
+
+    $(document).ready(function () {
+      table = $('#table').DataTable({
+        "processing": true,
+        "responsive": true,
+      });
+      new $.fn.dataTable.FixedHeader(table);
+    });
+
+    function add() {
+      save_method = 'add';
+      $('#form')[0].reset(); // reset form on modals
+      $('.form-group').removeClass('has-error'); // clear error class
+      $('.help-block').empty(); // clear error string
+      $('#exampleModal').modal('show'); // show bootstrap modal
+    }
+
+    function edit_data(id) {
+      save_method = 'update';
+      $('#form')[0].reset(); // reset form on modals
+      $('.form-group').removeClass('has-error'); // clear error class
+      $('.help-block').empty(); // clear error string
+      //Ajax Load data from ajax
+      $.ajax({
+        url: "/api/comment/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function (data) {
+          $('[name="id"]').val(data.data[0].id);
+          $('[name="comment"]').val(data.data[0].comment);
+          $('#exampleModal').modal('show'); // show bootstrap modal when complete loaded
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert('Error get data from ajax');
+        }
+      });
+    }
+
+    function save() {
+      var tipe;
+      // ajax adding data to database
+      $.ajax({
+        url: "/api/reply/",
+        type: "POST",
+        data: $('#form').serialize(),
+        dataType: "JSON",
+        success: function (data) {
+          $('#exampleModal').modal('hide');
+         location.reload();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          location.reload();
+          console.log(errorThrown);
+        }
+      });
+    }
+  </script>
+    <!-- Page Specific JS File -->
+</body>
+
+</html>

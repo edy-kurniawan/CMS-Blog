@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Boostrap Style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <title>
+        Blog
+    </title>
+</head>
+
+<body>
+    <!-- As a heading -->
+    <nav class="navbar bg-header justify-content-between">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img class="d-inline-block align-top" width="160" height="40" src="/images/logo.svg">
+            </a>
+            <a class="title" href="/">Blog</a>
+        </div>
+    </nav>
+    <section id="first-lp">
+        <div class="sec-one">
+            <div class="container content-1">
+                <div class="row">
+                    <div class="col-md-6 col-flex-center">
+                        <p class="lp-text-1 font-white text-index-up text-justify"><span class="new-font-1">Tips</span>
+                            Dan<span class="new-font-1">Trik</span> </br>Seputar <span class="new-font-1">Desain</span>
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-flex-center" style="place-content: center">
+                        <img src="/images/header-img.png" alt="" class="lazy lp-img-1">
+                    </div>
+                    <div class="col 12 col-flex-center " style="place-content: center; margin-top: -2rem;">
+                        <a href="#sec-second" class="scroll-lp"><img src="/images/arrow-down.png" alt=""
+                                class="lazy"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="sec-second" class="sec-two container">
+        <div class="col-12 text-center">
+            <span class="new-font-1">Ide - Ide</span> <span class="new-font-5">Populer !</span>
+        </div>
+        <!--Carousel Wrapper-->
+        <div id="class-carousel" class="carousel slide carousel-class" data-ride="carousel">
+            <!--Slides-->
+            <div class="row">
+                <div class="col-2 col-md-1 order-1  lp-arrow-class">
+                    <a class="btn-floating" href="#class-carousel" data-slide="prev"><img src="/images/btn-right.png"
+                            alt="" class="lazy lp-img-11"></a>
+                </div>
+                <div class="col-2 col-md-1 order-3 lp-arrow-class">
+                    <a class="btn-floating" href="#class-carousel" data-slide="next"><img src="/images/btn-left.png"
+                            alt="" class="lazy lp-img-11"></a>
+                </div>
+                <div class="carousel-inner p-md-5 col-md-10 col-8 order-2" style="background: #ffffff;" role="listbox">
+                    <!--First slide-->
+                    <% if(populer.length){ %>
+                        <!--First slide-->
+                    <div class="carousel-item active">
+                        <div class="card class-detail-lp">
+                            <div class="card-body p-0 d-md-flex">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <img src="/images/content/<%= data[0].thumbnail %>" class="lp-img-9" width="100%" height="300" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-white lp-text-7"><%= data[0].title %></h5>
+                                <p class="card-text text-white"><%- data[0].title.substring(0, 250) %>...</p>
+                                <center><a href="/blog/<%= data[0].slug %>" class="btn btn-warning text-white radius25">Lihat
+                                        Selengkapnya</a></center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card class-detail-lp">
+                            <div class="card-body p-0 d-md-flex">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <img src="/images/content/<%= data[1].thumbnail %>" class="lp-img-9" width="100%" height="300" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-white lp-text-7"><%= data[1].title %></h5>
+                                <p class="card-text text-white"><%- data[1].title.substring(0, 250) %>...</p>
+                                <center><a href="/blog/<%= data[1].slug %>" class="btn btn-warning text-white radius25">Lihat
+                                        Selengkapnya</a></center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card class-detail-lp">
+                            <div class="card-body p-0 d-md-flex">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <img src="/images/content/<%= data[2].thumbnail %>" class="lp-img-9" width="100%" height="300" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-white lp-text-7"><%= data[2].title %></h5>
+                                <p class="card-text text-white"><%- data[2].title.substring(0, 250) %>...</p>
+                                <center><a href="/blog/<%= data[2].slug %>" class="btn btn-warning text-white radius25">Lihat
+                                        Selengkapnya</a></center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card class-detail-lp">
+                            <div class="card-body p-0 d-md-flex">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <img src="/images/content/<%= data[3].thumbnail %>" class="lp-img-9" width="100%" height="300" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-white lp-text-7"><%= data[3].title %></h5>
+                                <p class="card-text text-white"><%- data[3].title.substring(0, 250) %>...</p>
+                                <center><a href="/blog/<%= data[3].slug %>" class="btn btn-warning text-white radius25">Lihat
+                                        Selengkapnya</a></center>
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { } %>
+                </div>
+            </div>
+            <!--/.Slides-->
+        </div>
+    </div>
+    </section>
+    <section id="lp-second">
+        <div class="col-12 text-center">
+            <span class="new-font-1 font-white">Anda Mencari</span> <span class="new-font-5 font-brown">Sesuatu ?</span>
+        </div>
+        <div class="row">
+            <div class="col-4 text-center">
+                <form method="GET" action="/archive/search/">
+                    <select name="kat" class="custom-select custom-select-lg mb-3 radius25 lp-text-6">
+                        <option>Semua Kategori</option>
+                        <% if(category.length){ 
+                            for(var i = 0;i < category.length; i++) { %>
+                        <option value="<%=category[i].id%>"><%= category[i].category %></option>
+                        <% } } %>
+                    </select>
+            </div>
+            <div class="col-8 text-center">
+                    <div class="input-group mb-3">
+                        <input name="keyword" class="form-control form-control-lg radius25 lp-text-6" type="text"
+                            placeholder="Masukan Kata Kunci">
+
+                    </div>
+            </div>
+            <div class="col-12 text-center">
+               <button class="btn btn-warning text-white lp-text-6 radius25">Cari</button>
+            </div>
+        </form>
+        </div>
+        <div class="float-right">
+            <a href="/archive"><span class="text-white lp-text-6">Lihat Lebih Banyak</span>
+                <img class="rounded" height="50px" width="50px" src="/images/arrow-slide.png">
+            </a>
+        </div>
+        <br>
+    </section>
+    <section id="lp-six">
+        <div class="col-12 text-center">
+            <span class="new-font-1">Artikel</span><span class="new-font-5 font-pink">Terbaru</span>
+            <br>
+            <img src="/images/line-down.png">
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-10">
+                    <% if(data.length){ 
+                        for(var i = 0;i < data.length;i++) {         
+                            var preview = data[i].desc;
+                    %>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title"><%=data[i].title%></h3>
+                            <small class="text-muted"><i class="fas fa-calendar-alt"></i> <%=data[i].createdAt%> <i
+                                    class="fas fa-pen-square"></i> <%=data[i].user.username%></i></small>
+                            <p><br><img src="/images/content/<%=data[i].thumbnail%>" class="img-fluid">
+                            </p>
+                            <div class="row">
+                                <div class="col-2">
+                                    <p></p>
+                                </div>
+                                <div class="col-8 text-center card-text">
+                                    <center><%= preview.substring(0, 450) %>...</center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a href="/blog/<%=data[i].slug%>"
+                                class="btn btn-warning text-white lp-text-6 radius25">Lihat
+                                Selengkapnya</a>
+                        </div>
+                        <br>
+                    </div>
+                    <% } }else { } %>
+                </div>
+            </div>
+            <br>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="/?page=1&limit=4" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="/?page=1&limit=4">1</a></li>
+                    <li class="page-item"><a class="page-link" href="/?page=2&limit=4">2</a></li>
+                    <li class="page-item"><a class="page-link" href="/?page=3&limit=4">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="/?page=1&limit=4">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </section>
+    <footer style="margin-top:0">
+        <div class="container">
+            <div class="col-12 text-center">
+                <br>
+                <span class="new-font-5 font-white">Ikuti</span><span class="new-font-5 font-white"> Kami</span>
+                <br>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <form action="" method="POST" id="form">
+                            <div class="input-group mb-3">
+                                <input class="form-control form-control-lg lp-text-6" name="email" type="text"
+                                    placeholder="Masukan email anda"> &nbsp&nbsp<button type="button" onclick="save()"
+                                    class="btn btn-warning text-white lp-text-6">Ikuti</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-footer">
+                    <ul>
+                        <li><a href="https://www.sekolahdesain.id/why_sekdes">Tentang Kami</a> </li>
+                        <li><a href="https://www.sekolahdesain.id/user-guide">Panduan Pengguna</a> </li>
+                        <li><a href="https://www.sekolahdesain.id/contact">Kontak Kami</a> </li>
+                        <li><a href="https://www.sekolahdesain.id/kebijakan">Kebijakan Privasi</a> </li>
+                        <li><a href="https://www.sekolahdesain.id/sk">Syarat & ketentuan</a> </li>
+                    </ul>
+                </div>
+                <div class="container-footer-second">
+                    <ul>
+                        <li>© Copyright 2020</li>
+                        <li> • Sekolah Desain </li>
+                        <li> • Semua Bisa Desain!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <script>
+        function save() {
+            // ajax adding data to database
+            $.ajax({
+                url: "/api/subscribe/",
+                type: "POST",
+                data: $('#form').serialize(),
+                dataType: "JSON",
+                success: function (data) {
+                    Swal.fire(
+                        'Sukses!',
+                        'Anda berhasil berlangganan!',
+                        'success'
+                    );
+                    $('#form')[0].reset();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    location.reload();
+                    console.log(errorThrown);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

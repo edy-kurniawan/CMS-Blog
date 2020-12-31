@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Dashboard</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/stylesheets/backoffice/style.css">
+  <link rel="stylesheet" href="/stylesheets/backoffice/components.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <!-- header  -->
+      <%- include('templates/header'); -%>
+      <!-- header end -->
+
+      <!-- sidebar  -->
+      <%- include('templates/sidebar'); -%>
+      <!-- sidebar end -->
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1>Dashboard</h1>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="fas fa-users-cog"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Total Admin</h4>
+                  </div>
+                  <div class="card-body">
+                    <%= admin %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Total Member</h4>
+                  </div>
+                  <div class="card-body">
+                    <%= member %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="fas fa-list"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Total Kategori</h4>
+                  </div>
+                  <div class="card-body">
+                    <%= category %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-success">
+                  <i class="far fa-newspaper"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Total Konten</h4>
+                  </div>
+                  <div class="card-body">
+                    <%= content %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Total konten perkategori</h4>
+                </div>
+                <div class="card-body">
+                  <% if(data.length){ 
+                    for(var i = 0;i < data.length; i++) { %> 
+                  <div class="mb-4">
+                    <div class="text-small float-right font-weight-bold text-muted">100</div>
+                    <div class="font-weight-bold mb-1"><%= data[i].category %></div>
+                    <div class="progress" data-height="3">
+                      <div class="progress-bar" role="progressbar" data-width="<%= category %>%" aria-valuenow="<%= category %>" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <% } } %>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Komentar Terbaru</h4>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled list-unstyled-border">
+                    <li class="media">
+                      <img class="mr-3 rounded-circle" width="50" src="/images/backoffice/avatar/avatar-1.png"
+                        alt="avatar">
+                      <div class="media-body">
+                        <div class="float-right text-primary">Now</div>
+                        <div class="media-title">Farhan A Mujib</div>
+                        <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                          scelerisque ante sollicitudin.</span>
+                      </div>
+                    </li>
+                    <li class="media">
+                      <img class="mr-3 rounded-circle" width="50" src="/images/backoffice/avatar/avatar-2.png"
+                        alt="avatar">
+                      <div class="media-body">
+                        <div class="float-right">12m</div>
+                        <div class="media-title">Ujang Maman</div>
+                        <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                          scelerisque ante sollicitudin.</span>
+                      </div>
+                    </li>
+                    <li class="media">
+                      <img class="mr-3 rounded-circle" width="50" src="/images/backoffice/avatar/avatar-4.png"
+                        alt="avatar">
+                      <div class="media-body">
+                        <div class="float-right">21m</div>
+                        <div class="media-title">Alfa Zulkarnain</div>
+                        <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                          scelerisque ante sollicitudin.</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2020
+        </div>
+        <div class="footer-right">
+          1.0.0
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- General JS Scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <!-- Template JS File -->
+  <script src="/javascripts/backoffice/scripts.js"></script>
+  <script src="/javascripts/backoffice/custom.js"></script>
+  <script src="/javascripts/backoffice/stisla.js"></script>
+</body>
+
+</html>

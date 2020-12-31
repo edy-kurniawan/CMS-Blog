@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Boostrap Style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <title>
+        Archive Page
+    </title>
+</head>
+
+<body>
+    <!-- As a heading -->
+    <nav class="navbar bg-header justify-content-between">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img class="d-inline-block align-top" width="160" height="40" src="/images/logo.svg">
+            </a>
+            <a class="title" href="/">Blog</a>
+        </div>
+    </nav>
+
+    <section id="first-lp">
+        <div class="sec-one-copy">
+            <div class="container">
+                <div class="col-12 text-center">
+                    <form method="GET" action="/archive/search/">
+                        <div class="input-group mb-3">
+                            <input name="keyword" class="form-control form-control-lg lp-text-6" type="text"
+                                placeholder="Masukan Kata Kunci"> 
+                             <button type="submit" class="btn btn-primary">Cari</button>
+                        </div>
+                    </form>
+                    <span class="new-font-1">Informasi </span> <span class="new-font-5"> Penting dan Menarik !</span>
+                    <br>
+                    <img src="/images/line-down.png">
+
+                </div>
+            </div>
+            <br>
+            <div class="card-columns">
+                <% if(data.length){ 
+                    for(var i = 0;i < data.length;i++) { 
+                        var preview = data[i].desc;  %>
+                <div class="card radius25">
+                    <img src="/images/content/<%=data[i].thumbnail%>" class="card-img-top radius25" width="100%" height="225" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=data[i].title%></h5>
+                        <p class="card-text"><small class="text-muted"><i class="fas fa-calendar-alt"></i> <%= moment(data[i].createdAt).format('Do MMMM, YYYY'); %> <i class="fas fa-pen-square"></i> <%=data[i].user.name%></small></p>
+                        <a href="/blog/<%=data[i].slug%>" class="btn btn-warning text-white radius25 float-right">Lihat
+                            Selengkapnya</a>
+                        <p class="card-text"><br></p>
+                    </div>
+                </div>
+                <% } }else { } %>
+            </div>
+            <br>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <footer style="margin-top:0">
+        <div class="container">
+            <div class="container-footer">
+                <ul>
+                    <li><a href="https://www.sekolahdesain.id/why_sekdes">Tentang Kami</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/user-guide">Panduan Pengguna</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/contact">Kontak Kami</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/kebijakan">Kebijakan Privasi</a> </li>
+                    <li><a href="https://www.sekolahdesain.id/sk">Syarat & ketentuan</a> </li>
+                </ul>
+            </div>
+            <div class="container-footer-second">
+                <ul>
+                    <li>© Copyright 2020</li>
+                    <li> • Sekolah Desain</li>
+                    <li> • Semua Bisa Desain!</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+</body>
+
+</html>
